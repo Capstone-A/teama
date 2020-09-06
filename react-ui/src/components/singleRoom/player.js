@@ -68,11 +68,12 @@ class Player extends Component {
       // create a new player
       this.player = new window.Spotify.Player({
         name: 'Spotify Player',
-        getOAuthToken: (cb) => {
+        getOAuthToken: (cb) => {-
           cb(token)
-        },
+        },-
       })
       console.log('player', this.player)
+
       this.createEventHandlers()
 
       // finally, connect
@@ -83,6 +84,7 @@ class Player extends Component {
       })
     }
   }
+
 
   createEventHandlers() {
     // Ready
@@ -165,7 +167,7 @@ class Player extends Component {
 			prevProps.currentlyPlaying !== this.props.currentlyPlaying &&
 			this.props.currentlyPlaying
 		) {
-			this.play(this.props.currentlyPlaying);
+			this.play("spotify:track:6EJiVf7U0p1BBfs0qqeb1f");
     }
 
   }
