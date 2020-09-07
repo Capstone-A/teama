@@ -85,7 +85,7 @@ export const SingleRoom = (props) => {
       <Container fluid>
         <Row>
           <Col>
-            <Player accessToken={accessToken} />
+            <Player roomId={roomId} accessToken={accessToken} />
             <TrackSearchBar />
           </Col>
           <Col>
