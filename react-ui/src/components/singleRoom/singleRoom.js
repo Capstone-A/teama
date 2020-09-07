@@ -2,7 +2,7 @@ import React from 'react'
 // import styled from 'styled-components'
 import MessageList from './messageList'
 import { withRouter } from 'react-router-dom'
-import { useQuery } from '@apollo/client'
+import { gql, useQuery } from '@apollo/client'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
@@ -30,6 +30,16 @@ export const SingleRoom = (props) => {
     variables: { roomId },
   })
 
+  // const subscribeToMoreUsers = () => {
+  //   subscribeToMore({
+  //     document: USER_JOIN,
+  //     updateQuery: (prev, {subscriptionData}) => {
+  //       if (!subscriptionData.data) return prev
+  //       const newUser = subscriptionData
+  //     }
+  //   })
+  // }
+
   //if (error) return <h1>Something went wrong in the rooms!</h1>
   if (loading) return <h1>Loading...</h1>
 
@@ -48,7 +58,7 @@ export const SingleRoom = (props) => {
         <Row>
           <Col>
             <Player accessToken={accessToken} />
-            <TrackSearchBar roomId={roomId} />
+            <TrackSearchBar />
           </Col>
           <Col>
             <Queue />
@@ -86,4 +96,27 @@ export const SingleRoom = (props) => {
 
 export default withRouter(SingleRoom)
 
+
+const MESSAGE_CREATED = gql`
+  subscription messageCreated($roomId: ID!) {
+    messageCreated(roomId: $roomId) {
+      message
+      user {
+        spotifyUsername
+      }
+    }
+  }
+`
+
+const USER_JOIN = gql`
+  subscription userJoin{
+    userJoin
+  }
+`
+
+const USER_LEFT = gql `
+  subscription userLeft{
+    userLeft
+  }
+`
 
