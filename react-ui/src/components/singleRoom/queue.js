@@ -27,21 +27,21 @@ const Tracks = styled.div`
 `
 
 export default function Queue(props) {
-  // useEffect(() => {
-  //  props.suggestedToQueue()
-  //  props.deQueued()
-  // })
+  useEffect(() => {
+   props.suggestedToQueue()
+   props.deQueued()
+  })
 
-  // const {data: { suggestToQueue }, loading } = useSubscription(
-  //   SUGGEST_TO_QUEUE,
-  //   { variables: { roomId, trackUri } }
-  // )
+  const {data: { suggestToQueue }, loading } = useSubscription(
+    SUGGEST_TO_QUEUE,
+    { variables: { roomId, trackUri } }
+  )
 
 
 
   return (
     <QueueDiv>
-      <h2>Up Next:</h2>
+      <h2>ADD ME</h2>
       <Tracks></Tracks>
     </QueueDiv>
   )
