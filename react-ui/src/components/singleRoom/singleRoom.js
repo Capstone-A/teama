@@ -90,7 +90,7 @@ export const SingleRoom = (props) => {
             <TrackSearchBar roomId={roomId} />
           </Col>
           <Col>
-            <Queue />
+            <Queue roomId={roomId}/>
           </Col>
           <Col>
             <UsersList users={users} />

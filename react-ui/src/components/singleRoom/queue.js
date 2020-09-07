@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react'
 //import UserContext from '../../userContext'
-import { useSubscription } from '@apollo/client'
-import TrackInQueue from './trackInQueue'
+
+
 import styled from 'styled-components'
+
 
 const QueueDiv = styled.div`
   margin-top: 10px;
@@ -25,19 +26,24 @@ const Tracks = styled.div`
   height: 90%;
   background-color: rgba(0, 0, 0, 30%);
 `
+// TODO: addToQueue
+//TODO: subscription -> subscription
 
 export default function Queue(props) {
-  useEffect(() => {
-   props.suggestedToQueue()
-   props.deQueued()
-  })
-
-  const {data: { suggestToQueue }, loading } = useSubscription(
-    SUGGEST_TO_QUEUE,
-    { variables: { roomId, trackUri } }
-  )
 
 
+  const allStorage = () => {
+
+    let values = [],
+        keys = Object.keys(localStorage),
+        i = keys.length;
+
+    while ( i-- ) {
+        values.push( localStorage.getItem(keys[i]) );
+    }
+
+    return values;
+  }
 
   return (
     <QueueDiv>

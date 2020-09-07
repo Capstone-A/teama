@@ -18,6 +18,14 @@ const Room = db.define("room", {
     queue: {
         type: Sequelize.ARRAY(Sequelize.STRING),
         defaultValue: ['spotify:track:6EJiVf7U0p1BBfs0qqeb1f'],
+    },
+    trackName: {
+        type: Sequelize.ARRAY(Sequelize.STRING),
+        defaultValue: ['Cut To The Feeling']
+    },
+    artist: {
+        type: Sequelize.ARRAY(Sequelize.STRING),
+        defaultValue: ['Carly Rae Jepsen']
     }
 })
 

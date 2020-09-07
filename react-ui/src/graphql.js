@@ -49,3 +49,13 @@ export const SUGGEST_TO_QUEUE = gql`
     suggestToQueue(roomId: $roomId trackUri: $trackUri)
   }
 `
+
+export const SUGGESTED_TO_QUEUE = gql`
+  subscription suggestedToQueue($roomId: ID) {
+    suggestedToQueue(roomId: $roomId) {
+      trackUri
+      trackName
+      artist
+    }
+  }
+`
