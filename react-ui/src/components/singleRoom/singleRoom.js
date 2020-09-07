@@ -8,9 +8,10 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import UsersList from './usersList'
 import Player from './player'
-import TrackSearchBar from './trackSearchBar'
+import TrackSearchBar from './trackSearch/trackSearchBar'
 import Queue from './queue'
 import { PageDiv } from '../user-home.js'
+import { GET_ROOM_INFO, MESSAGE_CREATED } from '../../graphql'
 import styled from 'styled-components'
 
 export const RoomHeading = styled.div`
@@ -86,7 +87,7 @@ export const SingleRoom = (props) => {
         <Row>
           <Col>
             <Player accessToken={accessToken} />
-            <TrackSearchBar />
+            <TrackSearchBar roomId={roomId} />
           </Col>
           <Col>
             <Queue />
@@ -123,37 +124,6 @@ export const SingleRoom = (props) => {
 }
 
 export default withRouter(SingleRoom)
-
-const GET_ROOM_INFO = gql`
-  query getSingleRoom($roomId: ID!) {
-    getSingleRoom(roomId: $roomId) {
-      id
-      name
-      description
-      messages {
-        message
-        user {
-          spotifyUsername
-        }
-      }
-      users {
-        spotifyUsername
-        accessToken
-      }
-    }
-  }
-`
-
-const MESSAGE_CREATED = gql`
-  subscription messageCreated($roomId: ID!) {
-    messageCreated(roomId: $roomId) {
-      message
-      user {
-        spotifyUsername
-      }
-    }
-  }
-`
 
 const USER_JOIN = gql`
   subscription userJoin($roomId: ID!){
