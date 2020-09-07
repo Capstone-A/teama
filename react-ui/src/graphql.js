@@ -45,9 +45,7 @@ export const MESSAGE_CREATED = gql`
 `
 
 export const SUGGEST_TO_QUEUE = gql`
-  mutation suggestToQueue($roomId: Id $trackUri: String) {
-    suggestToQueue(roomId: $roomId trackUri: $trackUri) {
-      trackUri
-    }
+  mutation suggestToQueue($roomId: ID $trackUri: String) {
+    suggestToQueue(roomId: $roomId trackUri: $trackUri)
   }
 `

@@ -1,18 +1,24 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { useMutation } from '@apollo/client'
+// import UserContext from '../../../userContext'
+import { SUGGEST_TO_QUEUE } from '../../../graphql'
+
 // import styled from 'styled-components'
 
-// const Message = styled.p`
-//   color: black;
-// `
+function SingleTrack(props) {
+  const [variables, setVariables] = useState({
+    roomId: props.roomId,
+    trackUri: props.item.uri
+  })
 
+  const [suggestToQueue] = useMutation(SUGGEST_TO_QUEUE, {
+    onError: (err) => console.error(err)
+  })
 
-export default function SingleTrack(props) {
 
   const handleClick = evt => {
     evt.preventDefault()
-    console.log("props.item: ", props.item)
-    console.log("evt.currentTarge: ",evt.currentTarget)
-    console.log("evt.currentTarge.uri: ",evt.currentTarget.trackUri)
+    suggestToQueue({ variables })
   }
 
 
@@ -23,3 +29,5 @@ export default function SingleTrack(props) {
       </div>
   )
 }
+
+export default SingleTrack

@@ -58,7 +58,7 @@ export const SingleRoom = (props) => {
         <Row>
           <Col>
             <Player accessToken={accessToken} />
-            <TrackSearchBar />
+            <TrackSearchBar roomId={roomId} />
           </Col>
           <Col>
             <Queue />
@@ -95,18 +95,6 @@ export const SingleRoom = (props) => {
 }
 
 export default withRouter(SingleRoom)
-
-
-const MESSAGE_CREATED = gql`
-  subscription messageCreated($roomId: ID!) {
-    messageCreated(roomId: $roomId) {
-      message
-      user {
-        spotifyUsername
-      }
-    }
-  }
-`
 
 const USER_JOIN = gql`
   subscription userJoin{
