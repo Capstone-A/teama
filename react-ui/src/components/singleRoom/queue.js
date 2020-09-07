@@ -1,6 +1,7 @@
-import React from 'react'
-//import { useCombobox } from 'downshift'
+import React, { useState, useEffect } from 'react'
 //import UserContext from '../../userContext'
+import { useSubscription } from '@apollo/client'
+import TrackInQueue from './trackInQueue'
 import styled from 'styled-components'
 
 const QueueDiv = styled.div`
@@ -25,7 +26,19 @@ const Tracks = styled.div`
   background-color: rgba(0, 0, 0, 30%);
 `
 
-export default function Queue() {
+export default function Queue(props) {
+  // useEffect(() => {
+  //  props.suggestedToQueue()
+  //  props.deQueued()
+  // })
+
+  // const {data: { suggestToQueue }, loading } = useSubscription(
+  //   SUGGEST_TO_QUEUE,
+  //   { variables: { roomId, trackUri } }
+  // )
+
+
+
   return (
     <QueueDiv>
       <h2>Up Next:</h2>
@@ -33,3 +46,5 @@ export default function Queue() {
     </QueueDiv>
   )
 }
+
+
