@@ -89,21 +89,36 @@ if (!isDev && cluster.isMaster) {
       },
       async (accessToken, refreshToken, profile, done) => {
         try {
-          console.log('hi!')
-          const [user] = await db.models.user.findOrCreate({
-            where: {
-              spotifyUsername: profile.id,
-            },
-            defaults: {
-              spotifyUsername: profile.id,
-              accessToken: accessToken,
-              proPic: profile.photos[0],
-              refreshToken: refreshToken,
-            },
-          })
-          console.log('newreq', user.id)
-          userId = user.id
-          done(null, user)
+              console.log('hi!')
+              // const [user] = await db.models.user.findOrCreate({
+              //   where: {
+              //     spotifyUsername: profile.id,
+              //   },
+              //   defaults: {
+              //     spotifyUsername: profile.id,
+              //     accessToken: accessToken,
+              //     proPic: profile.photos[0],
+              //     refreshToken: refreshToken,
+              //   },
+              // })
+             const user = await db.models.user.findOne({where: { spotifyUsername: profile.id } })
+              if(!user) {
+                const newUser = await db.models.user.create({
+                  spotifyUsername: profile.id,
+                  accessToken: accessToken,
+                  proPic: profile.photos[0],
+                  refreshToken: refreshToken
+                })
+                done(null, newUser)
+              } else {
+                console.log('newreq', user.id)
+                await user.update({
+                  accessToken: accessToken,
+                  refreshToken: refreshToken
+                }, {where: { spotifyUsername: profile.id }, returning: true, plain: true})
+                userId = user.id
+                done(null, user)
+              }
         } catch (err) {
           done(err)
         }
