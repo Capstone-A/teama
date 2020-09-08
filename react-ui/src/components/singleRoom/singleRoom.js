@@ -13,6 +13,7 @@ import Queue from './queue'
 import { PageDiv } from '../user-home.js'
 import { GET_ROOM_INFO, MESSAGE_CREATED } from '../../graphql'
 import styled from 'styled-components'
+import SuggestionQueue from './suggestionQueue/suggestionQueue'
 
 export const RoomHeading = styled.div`
   font-family: 'Montserrat', sans-serif;
@@ -91,6 +92,7 @@ export const SingleRoom = (props) => {
           </Col>
           <Col>
             <Queue roomId={roomId}/>
+            <SuggestionQueue roomId={roomId}/>
           </Col>
           <Col>
             <UsersList users={users} />

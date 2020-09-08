@@ -28,7 +28,7 @@ const queueResolver = {
     removeFromQueue: async (parent, {uri, roomId}, { models, pubSub}) => {
         try {
           const songToRemove = await models.Queue.findOne({where: {uri, roomId}})
-          songToRemove.destroy()
+          await songToRemove.destroy()
           const newQueue = await models.Queue.findAll({where: {roomId}})
           await pubSub.publish(REMOVED_FROM_QUEUE, {roomId, removedFromQueue: newQueue})
           return newQueue

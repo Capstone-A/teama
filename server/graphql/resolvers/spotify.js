@@ -102,51 +102,9 @@ const SpotifyResolver = {
                 return false
             }
         },
-        suggestToQueue: async(parent, {roomId, trackUri, trackName, artist}, {models, pubSub}) => {
-            try {
-                // await models.Room.update({'queue': sequelize.fn('array_append', sequelize.col('queue'), trackUri)}, {'where': {'id': roomId}})
-                // await models.Room.update({'trackName': sequelize.fn('array_append', sequelize.col('trackName'), trackName)}, {'where': {'id': roomId}})
-                // await models.Room.update({'artist': sequelize.fn('array_append', sequelize.col('artist'), artist)}, {'where': {'id': roomId}})
-                // const room = await models.Room.findOne({where: {id: roomId}})
-                await pubSub.publish(SUGGESTED_TO_QUEUE, {roomId, suggestedToQueue: {trackUri: room.queue, trackName: room.trackName, artist:room.artist}})
-                return true
-            } catch (error) {
-                console.log(error)
-            }
-        },
-        deQueue: async(parent, {roomId, trackUri}, {models, pubSub}) => {
-            try {
-                // const findRoom = await models.Room.findOne({where: {id: roomId}})
-                // findRoom.queue = findRoom.queue.filter((track) => track !== trackUri)
-                // await findRoom.save()
-                // await models.Room.update({'queue':sequelize.fn('array_remove', sequelize.col('queue'), trackUri)}, {'where': {'id': roomId}})
-                // const room = await models.Room.findOne({where: {id: roomId}})
-                // await pubSub.publish(DEQUEUED, {roomId, deQueued: room.queue})
-                await pubSub.publish(DEQUEUED, {roomId, deQueued: trackUri})
-                return true
-                //trackToPlaylist will be passed down to addSongToPlaylist mutation
-            } catch (error) {
-                console.log(error)
-            }
-        }
     },
-    Subscription: {
-        suggestedToQueue: {
-            subscribe: withFilter(
-                (parent, args, {pubSub}) => pubSub.asyncIterator([SUGGESTED_TO_QUEUE]),
-                (payload, variables) => {
-                    return payload.roomId === variables.roomId
-                }
-            )
-        },
-        deQueued: {
-            subscribe: withFilter(
-                (parent,args, {pubSub}) => pubSub.asyncIterator([DEQUEUED]), (payload, variables) => {
-                    return payload.roomId === variables.roomId
-                }
-            )
-        }
-    }
+    // Subscription: {
+    // }
 }
 
 module.exports = SpotifyResolver

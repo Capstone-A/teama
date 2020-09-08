@@ -57,20 +57,48 @@ export const GET_QUEUE = gql`
   }
 `
 
-// export const ADD_TO_QUEUE = gql`
-//   mutation addToQueue($uri: String, $trackName: String, $artist: String, $roomId: Int) {
-//     addToQueue(uri: $uri, trackName: $trackName, artist: $artist, roomId: $roomId) {
+export const ADD_TO_QUEUE = gql`
+  mutation addToQueue($uri: String, $trackName: String, $artist: String, $roomId: Int) {
+    addToQueue(uri: $uri, trackName: $trackName, artist: $artist, roomId: $roomId) {
+      id
+      uri
+      trackName
+      artist
+    }
+  }
+`
 
-//     }
-//   }
-// `
+export const ADDED_TO_QUEUE = gql`
+  subscription addedToQueue($roomId: Int) {
+    suggestedToQueue(roomId: $roomId) {
+      id
+      uri
+      trackName
+      artist
+    }
+  }
+`
 
-// export const ADDED_TO_QUEUE = gql`
-//   subscription suggestedToQueue($roomId: ID) {
-//     suggestedToQueue(roomId: $roomId) {
-//       trackUri
-//       trackName
-//       artist
-//     }
-//   }
-// `
+export const REMOVED_FROM_QUEUE = gql`
+  subscription removedFromQueue($roomId: Int) {
+    removedFromQueue(roomId: $roomId) {
+      id
+      uri
+      trackName
+      artist
+    }
+  }
+`
+
+
+export const REMOVE_FROM_QUEUE = gql`
+  subscription removeFromQueue($roomId: Int) {
+    removeFromQueue(roomId: $roomId) {
+      id
+      uri
+      trackName
+      artist
+    }
+  }
+`
+

@@ -1,6 +1,5 @@
 const { gql } = require('apollo-server')
 
-// TODO: query getAllRooms
 
 const Spotify = gql`
 
@@ -41,28 +40,13 @@ const Spotify = gql`
         getPlaylist(playlistId: String!): Playlist
     }
 
-    # type deQueueResponse {
-    #     trackToPlaylist: String
-    #     newQueue: Queue
-    # }
-
-    type Queue {
-        trackUri: [String],
-        trackName: [String],
-        artist: [String]
-    }
 
     type Mutation {
         createPlaylist(name: String, description: String, roomId: ID!): Boolean!
         addSongToPlaylist(roomId: ID, playlistId: String, trackUri: String): Boolean!
-        suggestToQueue(roomId: ID, uri: String): [String]
-        deQueue(roomId: ID, trackUri: String): deQueueResponse!
     }
 
-    type Subscription {
-        suggestedToQueue(roomId: ID!): Queue
-        deQueued(roomId: ID trackUri: String): String
-    }
+    
 `
 
 module.exports = Spotify
