@@ -6,8 +6,9 @@ npm-debug.log
 *.env
 *.dev
 .DS_Store
-secrets.js
+
 
 # Docker
 Dockerfile
 docker-compose.yml
+secrets.js
