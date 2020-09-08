@@ -28,3 +28,35 @@
 Creating a Playlist: PlaylistId
 Searching a song : track uri
 add a song to the playlist using track uri and playlistId
+
+
+Queue Model
+-Fields:
+ URI
+ TrackName
+ Artist
+ roomId
+
+Steps:
+-"SuggestToQueue" Mutation:
+  Make an instance in the queue model that takes in uri, trackname, artist, and roomID from trackSearch 
+  -Can return boolean or instance
+  (findOrCreate)
+-"GetQueue" Query:
+  Finds all the songs in the queue for the room 
+    -To always render the updated, there will need a subscribeToMore function in the frontend
+  (findAll {where: {roomId: id}})
+-"suggestedToQueue" Subscription:
+  Returns the newly added song, we will not render this by itself, but will be pushed to the getQueue query in subscribeToMore like what was done in Messages
+-"DeQueue" mutation
+  -Delete instance in database based on uri and roomId
+  -Return either boolean or updated queue after deleted
+-"deQueued" Subscription
+  -Triggers the addToPlaylist mutation by passing in the uri
+  -Returns the updated queue
+
+
+
+
+ 
+
