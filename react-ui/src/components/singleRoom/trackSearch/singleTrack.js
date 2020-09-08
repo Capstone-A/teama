@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useMutation, useSubscription } from '@apollo/client'
 // import UserContext from '../../../userContext'
-import { SUGGEST_TO_QUEUE, SUGGESTED_TO_QUEUE } from '../../../graphql'
+import { ADD_TO_QUEUE, ADDED_TO_QUEUE } from '../../../graphql'
 
 // import styled from 'styled-components'
 
@@ -9,23 +9,23 @@ function SingleTrack(props) {
 
   const [variables, setVariables] = useState({
     roomId: props.roomId,
-    trackUri: props.item.uri,
+    uri: props.item.uri,
     trackName: props.item.name,
     artist: props.item.artists[0].name
   })
 
-  const [suggestToQueue] = useMutation(SUGGEST_TO_QUEUE, {
+  const [addToQueue] = useMutation(ADD_TO_QUEUE, {
     onError: (err) => console.error(err)
   })
 
   // const {data: {suggestedToQueue}, loading} = useSubscription(
-  //   SUGGESTED_TO_QUEUE,
+  //   ADDED_TO_QUEUE,
   //   { variables: { roomId: variables.roomId }}
   // )
 
   const handleClick = evt => {
     evt.preventDefault()
-    suggestToQueue({ variables })
+    addToQueue({ variables })
 
     // const { trackUri, trackName, artist } = suggestedToQueue
     // localStorage.setItem(`${trackUri}`, {trackUri, trackName, artist})
