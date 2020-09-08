@@ -55,8 +55,8 @@ const Spotify = gql`
     type Mutation {
         createPlaylist(name: String, description: String, roomId: ID!): Boolean!
         addSongToPlaylist(roomId: ID, playlistId: String, trackUri: String): Boolean!
-        suggestToQueue(roomId: ID, trackUri: String, trackName: String, artist: String): Boolean
-        deQueue(roomId: ID, trackUri: String): Boolean
+        suggestToQueue(roomId: ID, uri: String): [String]
+        deQueue(roomId: ID, trackUri: String): deQueueResponse!
     }
 
     type Subscription {
