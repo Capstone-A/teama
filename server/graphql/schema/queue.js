@@ -2,7 +2,7 @@ const { gql } = require('apollo-server')
 
 const queue = gql`
     type Queue {
-        id: Int
+        id: ID
         uri: String
         trackName: String
         artist: String

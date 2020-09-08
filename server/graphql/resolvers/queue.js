@@ -6,7 +6,7 @@ const { PubSub } = require('apollo-server');
 
 const queueResolver = {
   Query: {
-    getQueue: async ({id}, {roomId}, {models}) => {
+    getQueue: async (parent, {roomId}, {models}) => {
       try {
         const queue = await models.Queue.findAll({where: {roomId}})
         return queue
@@ -30,7 +30,7 @@ const queueResolver = {
           const songToRemove = await models.Queue.findOne({where: {uri, roomId}})
           songToRemove.destroy()
           const newQueue = await models.Queue.findAll({where: {roomId}})
-          await pubSub.publish(REMOVE_FROM_QUEUE, {roomId: args.roomId, removedFromQueue: newQueue})
+          await pubSub.publish(REMOVED_FROM_QUEUE, {roomId, removedFromQueue: newQueue})
           return newQueue
         } catch (err) {
           console.log(err)
